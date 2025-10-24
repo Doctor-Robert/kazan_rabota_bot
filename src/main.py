@@ -4,7 +4,7 @@ init_db()
 
 
 # КОМАНДЫ
-@bot.message_handler(commands=["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post"])
+@bot.message_handler(commands=["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post", "send_show_post_1"])
 def start_handler(message):
     user_id, chat_id, username = get_easy_message(message)
     add_user_status(user_id, "")
@@ -24,6 +24,8 @@ def start_handler(message):
             send()
         elif message.text == "/send_show_post":
             send_show_post()
+        elif message.text == "/send_show_post_1":
+            send_show_post_1()
         elif message.text == "/show_users":
             show_users(message)
         elif message.text == "/add_pay_basic":
