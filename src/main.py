@@ -4,7 +4,7 @@ init_db()
 
 
 # КОМАНДЫ
-@bot.message_handler(commands=["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post", "send_show_post_1"])
+@bot.message_handler(commands=["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post"])
 def start_handler(message):
     user_id, chat_id, username = get_easy_message(message)
     add_user_status(user_id, "")
@@ -24,8 +24,6 @@ def start_handler(message):
             send()
         elif message.text == "/send_show_post":
             send_show_post()
-        elif message.text == "/send_show_post_1":
-            send_show_post_1()
         elif message.text == "/show_users":
             show_users(message)
         elif message.text == "/add_pay_basic":
@@ -155,9 +153,10 @@ def status_hendler(message):
         users = get_all_users()
         flag = False
         for user in users:
-            if message.text in user['username']:
+            if message.text == user['username']:
                 true_user = user
                 flag = True
+                break
         if flag:
             activate_tariff(true_user['user_id'], 'pay_basic')
             bot.send_message(chat_id, f"пользователю @{true_user['username']}, добавлен 1 бесплатный пост")
@@ -171,9 +170,10 @@ def status_hendler(message):
         users = get_all_users()
         flag = False
         for user in users:
-            if message.text in user['username']:
+            if message.text == user['username']:
                 true_user = user
                 flag = True
+                break
         if flag:
             activate_tariff(true_user['user_id'], 'pay_hrplus')
             bot.send_message(chat_id, f"пользователю @{true_user['username']}, добавлена подписка на 30 дней")
