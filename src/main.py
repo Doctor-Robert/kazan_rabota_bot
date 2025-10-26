@@ -206,7 +206,10 @@ def status_hendler(message):
         users = get_all_users()
         if message.text != "Отмена":
             for user in users:
-                bot.send_message(user['chat_id'], message.text)
+                try:
+                    bot.send_message(user['chat_id'], message.text)
+                except:
+                    print("Не получилось отправить")
         add_user_status(user_id, "")
 
 
