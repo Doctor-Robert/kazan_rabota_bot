@@ -157,18 +157,17 @@ def callback_moderation(callback):
 
         if posts_available <= 0:
             if (expires_at == None or datetime.now() > datetime.fromisoformat(expires_at)):
-                edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=text_pay(get_discount(user_id)), reply_markup=pay_button(get_discount(user_id)), parse_mode="HTML")
+                edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=text_pay(get_discount(user_id)), reply_markup=pay_button(user_id), parse_mode="HTML")
             else:
                 # Если есть активный тариф - сразу отправляем на модерацию
                 edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=moderation_text(), reply_markup=main_menu_buttons(), parse_mode="Markdown")
                 post = get_save_post(user_id)
-                add_post(user_id, post, callback.from_user.id, datetime.fromisoformat(expires_at))
-                add_posts_available(user_id, posts_available - 1)
+                add_post(user_id, post, callback.from_user.username, "Подписка 30 дней")
         else:
             # Если есть активный тариф - сразу отправляем на модерацию
             edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=moderation_text(), reply_markup=main_menu_buttons(), parse_mode="Markdown")
             post = get_save_post(user_id)
-            add_post(user_id, post, callback.from_user.id, datetime.fromisoformat(expires_at))
+            add_post(user_id, post, callback.from_user.username, "1 пост")
             add_posts_available(user_id, posts_available - 1)
 
 #Создание Оплаты
@@ -206,7 +205,8 @@ def process_payment(callback):
             f"1. Нажмите '💳 Перейти к оплате'\n"
             f"2. Оплатите счет\n"
             f"3. Вернитесь в бот\n\n"
-            f"✅ После успешной оплаты ваш пост будет отправлен на модерацию!"
+            f"✅ После оплаты пост автоматически отправится на проверку\n"
+            f"⏱️ Обычно модерация занимает 2-3 минуты"
         )
         
         edit_message_text_hendler(
@@ -233,17 +233,17 @@ def process_payment(callback):
         )
         print(f"Ошибка создания платежа: {e}")
 
-#Проверка оплаты
-def check_payment_handler(callback):
-    """Ручная проверка оплаты"""
+def free_post(callback):
     try:
         bot.answer_callback_query(callback.id)
     except Exception as e:
         print(f"Ошибка ответа на callback: {e}")
 
     user_id, chat_id, message_id = get_easy_callback(callback)
-    bot.answer_callback_query(callback.id, "⏳ Проверяем статус оплаты...")
-
+    # Если есть активный тариф - сразу отправляем на модерацию
+    edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=moderation_text(), reply_markup=main_menu_buttons(), parse_mode="Markdown")
+    post = get_save_post(user_id)
+    add_post(user_id, post, callback.from_user.username, "Бесплатный пост")
 
 
 
@@ -272,6 +272,7 @@ def approve(callback):
     if post_data:
         user_id = post_data["user_id"]
         content = post_data["content"]
+        content += "\n\n #реклама"
 
         # Отправляем уведомление автору
         delete_message_one(user_id, get_chat_id(user_id))

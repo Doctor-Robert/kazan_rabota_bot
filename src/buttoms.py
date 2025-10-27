@@ -59,7 +59,10 @@ def redact_button():
     return kb
 
 
-def pay_button(tarif):
+def pay_button(user_id):
+
+    tarif = get_discount(user_id)
+    posts = get_all_posts(user_id)
     price = []
     
     if tarif == 'yes':
@@ -79,12 +82,18 @@ def pay_button(tarif):
         btm3 = types.InlineKeyboardButton(f"💎 БИЗНЕС — {price[2]} ₽/мес", callback_data="pay_hrplus")
     
     btm4 = types.InlineKeyboardButton("📋 ГЛАВНОЕ МЕНЮ", callback_data="back_to_main_menu")
+
+    if len(posts) <= 0:
+        btm0 = types.InlineKeyboardButton(f"🎁 ПЕРВЫЙ БЕСПЛАТНЫЙ ПОСТ", callback_data="free_post")
+        kb.add(btm0)
     
     kb.add(btm1)
     kb.add(btm2)
     kb.add(btm3)
     kb.add(btm4)
     return kb
+
+
 
 
 def payment_button(payment_url):

@@ -4,7 +4,7 @@ init_db()
 
 
 # КОМАНДЫ
-@bot.message_handler(commands=["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post"])
+@bot.message_handler(commands=COMMANDS)
 def start_handler(message):
     user_id, chat_id, username = get_easy_message(message)
     add_user_status(user_id, "")
@@ -22,8 +22,6 @@ def start_handler(message):
             admin(message)
         elif message.text == "/send":
             send()
-        elif message.text == "/send_show_post":
-            send_show_post()
         elif message.text == "/show_users":
             show_users(message)
         elif message.text == "/add_pay_basic":
@@ -55,8 +53,8 @@ def callback_handler(callback):
         callback_moderation(callback)
     elif answer in ["pay_basic", "pay_premium", "pay_hrplus"]:
         process_payment(callback)
-    elif answer == "check_payment":
-        check_payment_handler(callback)
+    elif answer == "free_post":
+        free_post(callback)
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("approve_") or call.data.startswith("reject_") or call.data.startswith("rpost_"))
 def approve_post(callback):
@@ -104,9 +102,8 @@ def status_hendler(message):
         # Отправка сообщения и Добавления id сообщения в бд
         sent_message = bot.send_message(
             message.chat.id,
-            f"✅ *Предварительный просмотр:*\n\n————————————\n{message.text}\n————————————\n\n*Всё верно?*",
+            f"✅ Предварительный просмотр:\n\n————————————\n{message.text}\n————————————\n\nВсё верно?",
             reply_markup=redact_button(),
-            parse_mode="Markdown",
         )
         add_delete_message_id(user_id, sent_message.message_id)
 

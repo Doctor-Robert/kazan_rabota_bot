@@ -59,7 +59,12 @@ CALLBACK = [
     "profile",
     "before_post",
     "next_post",
+    "free_post",
 ]
 
+#Команды
+
+COMMANDS = ["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post"]
+
 # CHATS ID
-GROUP_CHAT_ID = [-1001746396097, -1001374673969]
+GROUP_CHAT_ID = [-1002950568168, -1002907514502]
