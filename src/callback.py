@@ -157,7 +157,7 @@ def callback_moderation(callback):
 
         if posts_available <= 0:
             if (expires_at == None or datetime.now() > datetime.fromisoformat(expires_at)):
-                edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=text_pay(get_discount(user_id)), reply_markup=pay_button(user_id), parse_mode="HTML")
+                edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=text_pay(), reply_markup=pay_button(user_id), parse_mode="HTML")
             else:
                 # Если есть активный тариф - сразу отправляем на модерацию
                 edit_message_text_hendler(chat_id=chat_id, message_id=message_id, text=moderation_text(), reply_markup=main_menu_buttons(), parse_mode="Markdown")

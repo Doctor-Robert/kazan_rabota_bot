@@ -14,17 +14,17 @@ TARIFFS = {
     "pay_basic": {
         "amount": 149.00,
         "description": "📊 БАЗОВЫЙ — 149 ₽",
-        "label": "БАЗОВЫЙ",
+        "label": "ОДИН ПОСТ",
     },
     "pay_premium": {
         "amount": 299.00,
         "description": "⚡ ПРЕМИУМ — 299 ₽",
-        "label": "ПРЕМИУМ",
+        "label": "ПОСТ С ЗАКРЕПОМ",
     },
     "pay_hrplus": {
         "amount": 999.00,
         "description": "💼 БИЗНЕС — 999 ₽/мес",
-        "label": "БИЗНЕС",
+        "label": "ПОДПИСКА НА МЕСЯЦ",
     },
 }
 
@@ -32,17 +32,17 @@ TARIFFS_DISCOUNT_50 = {
     "pay_basic": {
         "amount": 75.00,
         "description": "📊 БАЗОВЫЙ — 75 ₽",
-        "label": "БАЗОВЫЙ",
+        "label": "ОДИН ПОСТ",
     },
     "pay_premium": {
         "amount": 149.00,
         "description": "⚡ ПРЕМИУМ — 149 ₽",
-        "label": "ПРЕМИУМ",
+        "label": "ПОСТ С ЗАКРЕПОМ",
     },
     "pay_hrplus": {
         "amount": 499.00,
         "description": "💼 БИЗНЕС — 499 ₽/мес",
-        "label": "БИЗНЕС",
+        "label": "ПОДПИСКА НА МЕСЯЦ",
     },
 }
 
@@ -67,4 +67,4 @@ CALLBACK = [
 COMMANDS = ["start", "chat_id", "admin", "send", "show_users", "add_pay_basic", "add_pay_hrplus", "send_info_all_users", "discount_yes", "discount_no", "send_show_post"]
 
 # CHATS ID
-GROUP_CHAT_ID = [-1002950568168, -1002907514502]
+GROUP_CHAT_ID = [-1001374673969, -1001746396097]

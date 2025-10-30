@@ -60,33 +60,18 @@ def redact_button():
 
 
 def pay_button(user_id):
-
-    tarif = get_discount(user_id)
     posts = get_all_posts(user_id)
-    price = []
-    
-    if tarif == 'yes':
-        price = [75, 149, 499]
-    else:
-        price = [149, 299, 999]
     
     kb = types.InlineKeyboardMarkup()
-    
-    if tarif == 'yes':
-        btm1 = types.InlineKeyboardButton(f"📦 БАЗОВЫЙ — {price[0]} ₽ 💰", callback_data="pay_basic")
-        btm2 = types.InlineKeyboardButton(f"🚀 ПРЕМИУМ — {price[1]} ₽ 💰", callback_data="pay_premium")
-        btm3 = types.InlineKeyboardButton(f"💎 БИЗНЕС — {price[2]} ₽/мес 💰", callback_data="pay_hrplus")
-    else:
-        btm1 = types.InlineKeyboardButton(f"📦 БАЗОВЫЙ — {price[0]} ₽", callback_data="pay_basic")
-        btm2 = types.InlineKeyboardButton(f"🚀 ПРЕМИУМ — {price[1]} ₽", callback_data="pay_premium")
-        btm3 = types.InlineKeyboardButton(f"💎 БИЗНЕС — {price[2]} ₽/мес", callback_data="pay_hrplus")
+    btm1 = types.InlineKeyboardButton(f"📦 ОДИН ПОСТ", callback_data="pay_basic")
+    btm2 = types.InlineKeyboardButton(f"🚀 ПОСТ С ЗАКРЕПОМ НА 24 ЧАСА", callback_data="pay_premium")
+    btm3 = types.InlineKeyboardButton(f"💎 ПОДПИСКА НА МЕСЯЦ", callback_data="pay_hrplus")
     
     btm4 = types.InlineKeyboardButton("📋 ГЛАВНОЕ МЕНЮ", callback_data="back_to_main_menu")
 
     if len(posts) <= 0:
         btm0 = types.InlineKeyboardButton(f"🎁 ПЕРВЫЙ БЕСПЛАТНЫЙ ПОСТ", callback_data="free_post")
         kb.add(btm0)
-    
     kb.add(btm1)
     kb.add(btm2)
     kb.add(btm3)
